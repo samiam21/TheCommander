@@ -5,6 +5,7 @@
 #include "../lib/DaisyInputs/Knob.h"
 #include "../lib/DaisyInputs/SimpleToggle.h"
 #include "../lib/DaisyEffects/Reverb.h"
+#include "../lib/DaisyEffects/DaisyChorus.h"
 
 // Use the daisy namespace to prevent having to type
 // daisy:: before all libdaisy functions
@@ -15,6 +16,7 @@ DaisySeed *hw;
 
 // Declare the effects objects being used
 Reverb reverb;
+DaisyChorus chorus;
 
 // Declare the toggle switches and parameters
 SimpleToggle modTypeToggle;

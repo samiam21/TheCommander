@@ -8,8 +8,8 @@
 #define WAIT_FOR_SERIAL false
 #define ENABLE_DISPLAY false
 
-#define DAISY_BLOCKSIZE 1
-#define DAISY_SAMPLE_RATE daisy::SaiHandle::Config::SampleRate::SAI_96KHZ
+#define DAISY_BLOCKSIZE 4
+#define DAISY_SAMPLE_RATE daisy::SaiHandle::Config::SampleRate::SAI_48KHZ
 
 // This define is to make the effects library play nice in a non-multi-world
 #define MAX_EFFECTS 0
