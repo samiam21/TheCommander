@@ -1,4 +1,4 @@
-#include "TerrariumTemplate.h"
+#include "TheCommander.h"
 
 /**
  * Audio callback to process each enabled effect
@@ -7,8 +7,18 @@ void AudioCallback(AudioHandle::InterleavingInputBuffer in, AudioHandle::Interle
 {
     for (size_t i = 0; i < size; i++)
     {
-        // Process the effect audio
-        out[i] = boost.Process(in[i]);
+        float wet = in[i];
+
+        // Process the mod effect audio
+
+        // Add reverb
+        if (!reverbOff)
+        {
+            wet = reverb.Process(wet);
+        }
+
+        // Output the processed audio
+        out[i] = wet;
     }
 }
 
@@ -30,16 +40,17 @@ void InitializeControls()
     System::Delay(500);
 
     // Initialize the effect knobs
-    boost.ConfigureKnobPositions(KNOB_2_CHN);
+    reverb.ConfigureKnobPositions(-1, KNOB_6_CHN, -1);
 
-    // Initialize the effect toggles
-    boost.ConfigureTogglePositions(effectTogglePin2);
+    // Initialize the toggles
+    reverbToggle.Init(hw->GetPin(effectTogglePin3));
+    modTypeToggle.Init(hw->GetPin(effectTogglePin2));
 }
 
 void InitializeEffects()
 {
     // Initialize the boost effect
-    boost.Setup(hw);
+    reverb.Setup(hw);
 }
 
 int main(void)
@@ -66,7 +77,10 @@ int main(void)
 
     while (1)
     {
+        // Check the reverb toggle
+        reverbOff = reverbToggle.ReadToggle();
+
         // Run the effect loop functions
-        boost.Loop(true);
+        reverb.Loop(true);
     }
 }

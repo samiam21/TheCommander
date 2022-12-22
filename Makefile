@@ -1,5 +1,5 @@
 # Project Name
-TARGET = TerrariumTemplate
+TARGET = TheCommander
 
 # Enable debugging for J-Link
 DEBUG = 1
@@ -13,7 +13,7 @@ CPPFLAGS += -DHAL_PCD_MODULE_ENABLED
 
 # Sources
 # Sources
-CPP_SOURCES = src/TerrariumTemplate.cpp $(wildcard lib/DaisyEffects/*.cpp) $(wildcard lib/DaisyInputs/*.cpp)
+CPP_SOURCES = src/TheCommander.cpp $(wildcard lib/DaisyEffects/*.cpp) $(wildcard lib/DaisyInputs/*.cpp)
 
 # Library Locations
 LIBDAISY_DIR = lib/libdaisy

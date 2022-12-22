@@ -1,10 +1,10 @@
-#ifndef TERR_TEMPLATE_H
-#define TERR_TEMPLATE_H
+#ifndef COMMANDER_H
+#define COMMANDER_H
 
 #include "../include/PedalConfig.h"
 #include "../lib/DaisyInputs/Knob.h"
 #include "../lib/DaisyInputs/SimpleToggle.h"
-#include "../lib/DaisyEffects/CleanBoost.h"
+#include "../lib/DaisyEffects/Reverb.h"
 
 // Use the daisy namespace to prevent having to type
 // daisy:: before all libdaisy functions
@@ -14,7 +14,13 @@ using namespace daisy;
 DaisySeed *hw;
 
 // Declare the effects objects being used
-CleanBoost boost;
+Reverb reverb;
+
+// Declare the toggle switches and parameters
+SimpleToggle modTypeToggle;
+SimpleToggle reverbToggle;
+bool reverbOff = true;
+bool phaserType = true;
 
 /**
  * Audio callback to process each enabled effect
