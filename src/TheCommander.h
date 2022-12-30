@@ -6,6 +6,7 @@
 #include "../lib/DaisyInputs/SimpleToggle.h"
 #include "../lib/DaisyEffects/Reverb.h"
 #include "../lib/DaisyEffects/DaisyChorus.h"
+#include "../lib/DaisyEffects/DaisyFlanger.h"
 
 // Use the daisy namespace to prevent having to type
 // daisy:: before all libdaisy functions
@@ -18,6 +19,7 @@ DaisySeed *hw;
 Balance balancer;
 Reverb reverb;
 DaisyChorus chorus;
+DaisyFlanger flanger;
 
 // Declare the toggle switches and parameters
 SimpleToggle modTypeToggle;

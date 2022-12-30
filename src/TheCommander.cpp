@@ -10,6 +10,7 @@ void AudioCallback(AudioHandle::InterleavingInputBuffer in, AudioHandle::Interle
         float wet = in[i];
 
         // Process the mod effect audio
+        wet = flanger.Process(wet);
 
         // Add the chorus
         wet = chorus.Process(wet);
@@ -51,6 +52,7 @@ void InitializeControls()
     // Initialize the effect knobs
     reverb.ConfigureKnobPositions(-1, KNOB_6_CHN, -1);
     chorus.ConfigureKnobPositions(KNOB_5_CHN, KNOB_1_CHN, KNOB_2_CHN, -1);
+    flanger.ConfigureKnobPositions(KNOB_4_CHN, KNOB_1_CHN, KNOB_2_CHN, -1);
 
     // Initialize the toggles
     reverbToggle.Init(hw->GetPin(effectTogglePin3));
@@ -65,6 +67,7 @@ void InitializeEffects()
     // Initialize the effects
     reverb.Setup(hw);
     chorus.Setup(hw);
+    flanger.Setup(hw);
 }
 
 int main(void)
@@ -103,5 +106,6 @@ int main(void)
         // Run the effect loop functions
         reverb.Loop(true);
         chorus.Loop(true);
+        flanger.Loop(true);
     }
 }
