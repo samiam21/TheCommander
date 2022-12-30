@@ -24,7 +24,7 @@ void AudioCallback(AudioHandle::InterleavingInputBuffer in, AudioHandle::Interle
         wet = balancer.Process(wet, in[i]);
 
         // Output the processed audio
-        out[i] = wet;
+        out[i] = wet * outputLevel;
     }
 }
 
@@ -44,6 +44,9 @@ void InitializeControls()
     // TODO: Find a better way to do this?
     // Give the ADC time to start up
     System::Delay(500);
+
+    // Initialize the output level knob
+    outputLevelKnob.Init(hw, KNOB_3_CHN, outputLevel, outputLevelMin, outputLevelMax);
 
     // Initialize the effect knobs
     reverb.ConfigureKnobPositions(-1, KNOB_6_CHN, -1);
@@ -90,6 +93,12 @@ int main(void)
     {
         // Check the reverb toggle
         reverbOff = reverbToggle.ReadToggle();
+
+        // Check the level knob
+        if (outputLevelKnob.SetNewValue(outputLevel))
+        {
+            debugPrintlnF(hw, "Updated the output level to: %f", outputLevel);
+        }
 
         // Run the effect loop functions
         reverb.Loop(true);

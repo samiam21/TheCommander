@@ -25,6 +25,12 @@ SimpleToggle reverbToggle;
 bool reverbOff = true;
 bool phaserType = true;
 
+// Output level controls
+const float outputLevelMin = 0.0f;
+const float outputLevelMax = 2.0f;
+float outputLevel = 1.f;
+Knob outputLevelKnob;
+
 /**
  * Audio callback to process each enabled effect
  */
