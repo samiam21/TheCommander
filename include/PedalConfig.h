@@ -15,6 +15,7 @@
 #define MAX_EFFECTS 0
 
 #define MAX_KNOBS 6
+#define KNOB_NO_CHN 99
 #define KNOB_1_CHN 0
 #define KNOB_2_CHN 1
 #define KNOB_3_CHN 2

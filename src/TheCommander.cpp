@@ -15,14 +15,14 @@ void AudioCallback(AudioHandle::InterleavingInputBuffer in, AudioHandle::Interle
         // Add the chorus
         wet = chorus.Process(wet);
 
+        // Balance the output prior to applying the level and reverb controls
+        wet = balancer.Process(wet, in[i]);
+
         // Add the reverb
         if (!reverbOff)
         {
             wet = reverb.Process(wet);
         }
-
-        // Balance the output prior to applying the level control
-        wet = balancer.Process(wet, in[i]);
 
         // Output the processed audio
         out[i] = wet * outputLevel;
@@ -50,9 +50,9 @@ void InitializeControls()
     outputLevelKnob.Init(hw, KNOB_3_CHN, outputLevel, outputLevelMin, outputLevelMax);
 
     // Initialize the effect knobs
-    reverb.ConfigureKnobPositions(-1, KNOB_6_CHN, -1);
-    chorus.ConfigureKnobPositions(KNOB_5_CHN, KNOB_1_CHN, KNOB_2_CHN, -1);
-    flanger.ConfigureKnobPositions(KNOB_4_CHN, KNOB_1_CHN, KNOB_2_CHN, -1);
+    reverb.ConfigureKnobPositions(KNOB_NO_CHN, KNOB_6_CHN, KNOB_NO_CHN);
+    chorus.ConfigureKnobPositions(KNOB_5_CHN, KNOB_1_CHN, KNOB_2_CHN, KNOB_NO_CHN);
+    flanger.ConfigureKnobPositions(KNOB_4_CHN, KNOB_1_CHN, KNOB_2_CHN, KNOB_NO_CHN);
 
     // Initialize the toggles
     reverbToggle.Init(hw->GetPin(effectTogglePin3));
