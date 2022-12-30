@@ -20,6 +20,9 @@ void AudioCallback(AudioHandle::InterleavingInputBuffer in, AudioHandle::Interle
             wet = reverb.Process(wet);
         }
 
+        // Balance the output prior to applying the level control
+        wet = balancer.Process(wet, in[i]);
+
         // Output the processed audio
         out[i] = wet;
     }
@@ -44,7 +47,7 @@ void InitializeControls()
 
     // Initialize the effect knobs
     reverb.ConfigureKnobPositions(-1, KNOB_6_CHN, -1);
-    chorus.ConfigureKnobPositions(KNOB_5_CHN, -1, -1, -1);
+    chorus.ConfigureKnobPositions(KNOB_5_CHN, KNOB_1_CHN, KNOB_2_CHN, -1);
 
     // Initialize the toggles
     reverbToggle.Init(hw->GetPin(effectTogglePin3));
@@ -53,6 +56,9 @@ void InitializeControls()
 
 void InitializeEffects()
 {
+    // Initialize the balancer
+    balancer.Init(hw->AudioSampleRate());
+
     // Initialize the effects
     reverb.Setup(hw);
     chorus.Setup(hw);

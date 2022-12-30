@@ -15,6 +15,7 @@ using namespace daisy;
 DaisySeed *hw;
 
 // Declare the effects objects being used
+Balance balancer;
 Reverb reverb;
 DaisyChorus chorus;
 
