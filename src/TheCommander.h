@@ -7,6 +7,7 @@
 #include "../lib/DaisyEffects/Reverb.h"
 #include "../lib/DaisyEffects/DaisyChorus.h"
 #include "../lib/DaisyEffects/DaisyFlanger.h"
+#include "../lib/DaisyEffects/DaisyPhaser.h"
 
 // Use the daisy namespace to prevent having to type
 // daisy:: before all libdaisy functions
@@ -20,12 +21,13 @@ Balance balancer;
 Reverb reverb;
 DaisyChorus chorus;
 DaisyFlanger flanger;
+DaisyPhaser phaser;
 
 // Declare the toggle switches and parameters
 SimpleToggle modTypeToggle;
 SimpleToggle reverbToggle;
 bool reverbOff = true;
-bool phaserType = true;
+bool flangerType = true;
 
 // Output level controls
 const float outputLevelMin = 0.0f;

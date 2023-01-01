@@ -10,7 +10,14 @@ void AudioCallback(AudioHandle::InterleavingInputBuffer in, AudioHandle::Interle
         float wet = in[i];
 
         // Process the mod effect audio
-        wet = flanger.Process(wet);
+        if (flangerType)
+        {
+            wet = flanger.Process(wet);
+        }
+        else
+        {
+            wet = phaser.Process(wet);
+        }
 
         // Add the chorus
         wet = chorus.Process(wet);
@@ -53,6 +60,7 @@ void InitializeControls()
     reverb.ConfigureKnobPositions(KNOB_NO_CHN, KNOB_6_CHN, KNOB_NO_CHN);
     chorus.ConfigureKnobPositions(KNOB_5_CHN, KNOB_1_CHN, KNOB_2_CHN, KNOB_NO_CHN);
     flanger.ConfigureKnobPositions(KNOB_4_CHN, KNOB_1_CHN, KNOB_2_CHN, KNOB_NO_CHN);
+    phaser.ConfigureKnobPositions(KNOB_4_CHN, KNOB_1_CHN, KNOB_2_CHN, KNOB_NO_CHN);
 
     // Initialize the toggles
     reverbToggle.Init(hw->GetPin(effectTogglePin3));
@@ -68,6 +76,7 @@ void InitializeEffects()
     reverb.Setup(hw);
     chorus.Setup(hw);
     flanger.Setup(hw);
+    phaser.Setup(hw);
 }
 
 int main(void)
@@ -97,6 +106,9 @@ int main(void)
         // Check the reverb toggle
         reverbOff = reverbToggle.ReadToggle();
 
+        // Check the phaser toggle
+        flangerType = modTypeToggle.ReadToggle();
+
         // Check the level knob
         if (outputLevelKnob.SetNewValue(outputLevel))
         {
@@ -107,5 +119,6 @@ int main(void)
         reverb.Loop(true);
         chorus.Loop(true);
         flanger.Loop(true);
+        phaser.Loop(true);
     }
 }
