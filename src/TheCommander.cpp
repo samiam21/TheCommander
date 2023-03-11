@@ -3,11 +3,11 @@
 /**
  * Audio callback to process each enabled effect
  */
-void AudioCallback(AudioHandle::InterleavingInputBuffer in, AudioHandle::InterleavingOutputBuffer out, size_t size)
+void AudioCallback(AudioHandle::InputBuffer in, AudioHandle::OutputBuffer out, size_t size)
 {
     for (size_t i = 0; i < size; i++)
     {
-        float wet = in[i];
+        float wet = in[0][i];
 
         // Process the mod effect audio
         if (flangerType)
@@ -23,7 +23,7 @@ void AudioCallback(AudioHandle::InterleavingInputBuffer in, AudioHandle::Interle
         wet = chorus.Process(wet);
 
         // Balance the output prior to applying the level and reverb controls
-        wet = balancer.Process(wet, in[i]);
+        wet = balancer.Process(wet, in[0][i]);
 
         // Add the reverb
         if (!reverbOff)
@@ -32,7 +32,7 @@ void AudioCallback(AudioHandle::InterleavingInputBuffer in, AudioHandle::Interle
         }
 
         // Output the processed audio
-        out[i] = wet * outputLevel;
+        out[0][i] = wet * outputLevel;
     }
 }
 
@@ -82,6 +82,7 @@ void InitializeEffects()
 int main(void)
 {
     // Initialize the hardware
+    hw->Configure();
     hw->Init();
 
     // Update the block size and sample rate to minimize noise

@@ -38,7 +38,7 @@ Knob outputLevelKnob;
 /**
  * Audio callback to process each enabled effect
  */
-void AudioCallback(AudioHandle::InterleavingInputBuffer in, AudioHandle::InterleavingOutputBuffer out, size_t size);
+void AudioCallback(AudioHandle::InputBuffer in, AudioHandle::OutputBuffer out, size_t size);
 
 /**
  * Initializes the input controls
