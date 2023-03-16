@@ -82,7 +82,6 @@ void InitializeEffects()
 int main(void)
 {
     // Initialize the hardware
-    hw->Configure();
     hw->Init();
 
     // Update the block size and sample rate to minimize noise
