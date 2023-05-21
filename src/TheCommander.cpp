@@ -73,6 +73,7 @@ void InitializeEffects()
     balancer.Init(hw->AudioSampleRate());
 
     // Initialize the effects
+    reverb.SetMinMaxDecay(VERB_DECAY_MIN, VERB_DECAY_MAX);
     reverb.Setup(hw);
     chorus.Setup(hw);
     flanger.Setup(hw);

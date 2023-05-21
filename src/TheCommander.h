@@ -29,6 +29,10 @@ SimpleToggle reverbToggle;
 bool reverbOff = true;
 bool flangerType = true;
 
+// Declare the effect mins and maxes
+const float VERB_DECAY_MIN = 0.79f;
+const float VERB_DECAY_MAX = 0.99f;
+
 // Output level controls
 const float outputLevelMin = 0.0f;
 const float outputLevelMax = 2.0f;
